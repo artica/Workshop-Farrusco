@@ -1,3 +1,0 @@
-
-FARRUSCO_PROCESSING
-FARRUSCO_PROCESSING.jar,core.jar,serial.jar,RXTXcomm.jar

@@ -1,7 +1,7 @@
 /*  ----------------------------------------------------------------------------
  *  WWW.GUIBOT.PT                                                  WWW.ARTICA.CC
  *  ----------------------------------------------------------------------------
- *  FARRUSCO COMPONENTS TESTER / CALIBRATER
+ *  FARRUSCO COMPONENTS TESTER / CALIBRATOR
  *  ----------------------------------------------------------------------------
  *
  *  Interface visual para testar e calibrar os componentes do Farrusco
