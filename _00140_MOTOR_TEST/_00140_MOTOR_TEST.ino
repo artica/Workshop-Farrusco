@@ -29,7 +29,7 @@ void setup()
 
 void loop() 
 {
-  /*
+  
   stopMotor();
   delay(1000);
   forwardMotor();
@@ -39,12 +39,13 @@ void loop()
   turnLeftMotor();
   delay(1000);
   backwardMotor();
-  delay(5000);
-  */
-  MotorTest();
+  delay(1000);
+  
+  //MotorTest();
 } 
   
 void stopMotor(){
+  Serial.println("stop");
   analogWrite(motorA0, 0);
   analogWrite(motorA1, 0);
  
@@ -52,6 +53,7 @@ void stopMotor(){
   analogWrite(motorB1, 0);
 }
 void forwardMotor(){
+  Serial.println("forward");
   analogWrite(motorA0, 255);
   analogWrite(motorA1, 0);
  
@@ -60,6 +62,7 @@ void forwardMotor(){
 }
     
 void backwardMotor(){
+  Serial.println("backward");
   analogWrite(motorB0, 0);
   analogWrite(motorB1, 255);
  
@@ -68,6 +71,7 @@ void backwardMotor(){
 }
 
 void turnRightMotor(){
+  Serial.println("turnright");
   analogWrite(motorB0, 255);
   analogWrite(motorB1, 0);
   
@@ -76,6 +80,7 @@ void turnRightMotor(){
  } 
  
 void turnLeftMotor(){
+  Serial.println("turnleft");
  analogWrite(motorB0, 0);
  analogWrite(motorB1, 255);
  

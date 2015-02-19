@@ -32,27 +32,10 @@ void setup()
 
 void loop() 
 {
-  /*
   
-  // acelera
-  for(int fadeValue = 0 ; fadeValue <= 255; fadeValue +=5) { 
-      DiffTurn(-fadeValue, -fadeValue);  
-      delay(50);
-  }
-  
-  // desacelera
-  for(int fadeValue = 255 ; fadeValue >= 0; fadeValue -=5) { 
-    DiffTurn(fadeValue, -fadeValue);
-    delay(50);
-  }
+ // utiliza a funçao DiffTurn para fazer o Farrusco desenhar um quadrado no chao
+ // tenta faze-lo com o minimo de linhas de codigo possivel
  
-  */
-  DiffTurn(235, 255);  
-  Serial.println("255, 255 - frente");
-  delay(2000);  
-  
-  DiffTurn (255, -255);
-  Serial.println("255, -255 - right");
-  delay(250);  
+ 
 }
 

@@ -19,6 +19,7 @@ int motorLeftSpeed, motorRightSpeed;
 int IRPin = 0;
 int IRValue;
 
+int mappedValue;
 // --------------------------------------------------------------------------- SETUP
 
 void setup() 
@@ -36,16 +37,14 @@ void setup()
 
 void loop() 
 {
+  // read IR
   ReadIR();
-  
-  if (IRValue > 299)
-  { 
-    MotorR();
-    delay(500);
-  }
-  else
-    MotorF();
-  
-    
+
+  // choose one of the below functions
+  StopAndGo();
+  //ProgressiveStopAndGo();
 }
+
+
+
 
