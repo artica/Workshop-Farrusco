@@ -1,7 +1,7 @@
 void ObstacleAvoidance() 
 {
 
-  ServoRange(60, 140, del, 5);
+  ServoRange(60, 140, servoDelay, 5);
   
   ReadIR();
   
@@ -17,66 +17,49 @@ void ObstacleAvoidance()
   }
   else 
   {
-  // se 'i' for menor do que 90 quer dizer que estamos a olhar para a esquerda
+  // se 'servoPos' for menor do que 90 quer dizer que estamos a olhar para a esquerda
   // logo querermos que o robot se afaste, sendo assim vamos parar o motor da direita
   // girando apenas o motor da esquerda 
-  if (i < 90) {
-    
-    if (IRValue >= 300)   {
-      
-      digitalWrite(red_pin, LOW);
-      digitalWrite(green_pin, HIGH);
-      digitalWrite(blue_pin, LOW);
-      
-      motorLeftSpeed = maxSpeedLeft;
-      motorRightSpeed = 0;
-
-      // slow down servo speed
-      del = 250;
-    }
-    if(IRValue < 299) {
-      
-      digitalWrite(red_pin, LOW);
-      digitalWrite(green_pin, LOW);
-      digitalWrite(blue_pin, HIGH);
-      
-      motorLeftSpeed = maxSpeedLeft;
-      motorRightSpeed = maxSpeedRight;
-      
-      // speed up servo speed
-      del = 50;
-    }
-  }
-  
-  // se 'i' for maior do que 90 quer dizer que estamos a olhar para a direita
-  // logo querermos que o robot se afaste, sendo assim vamos parar o motor da esquerda
-  // girando apenas o motor da direita 
-  if (i > 90) {
-    if (IRValue >= 300) {
-      
-      digitalWrite(red_pin, LOW);
-      digitalWrite(green_pin, HIGH);
-      digitalWrite(blue_pin, LOW);
+  if (servoPos > 90 && IRValue >= 300)   {
       motorRightSpeed = maxSpeedRight;
       motorLeftSpeed = 0;
-
       // slow down servo speed
-      del = 250;
+      servoDelay = 250;
+      
+      digitalWrite(red_pin, LOW);
+      digitalWrite(green_pin, HIGH);
+      digitalWrite(blue_pin, LOW);
     }
-    if(IRValue < 299) {
+  
+  // se 'servoPos' for maior do que 90 quer dizer que estamos a olhar para a direita
+  // logo querermos que o robot se afaste, sendo assim vamos parar o motor da esquerda
+  // girando apenas o motor da direita 
+  if (servoPos < 90 && IRValue >= 300) {
+      motorRightSpeed = 0;
+      motorLeftSpeed = maxSpeedLeft;
+      // slow down servo speed
+      servoDelay = 250;
+      
+      digitalWrite(red_pin, LOW);
+      digitalWrite(green_pin, HIGH);
+      digitalWrite(blue_pin, LOW);
+    }
+    
+   if(IRValue < 299) {
+      motorRightSpeed = maxSpeedRight;
+      motorLeftSpeed = maxSpeedLeft;
+      // speed up servo speed
+      servoDelay = 50;
       
       digitalWrite(red_pin, LOW);
       digitalWrite(green_pin, LOW);
       digitalWrite(blue_pin, HIGH);
       
-      motorRightSpeed = maxSpeedRight;
-      motorLeftSpeed = maxSpeedLeft;
-      
-      // speed up servo speed
-      del = 50;
-    }
-  }
-  
+    } 
+    
+
+  delay(10);
+
   // chamada da função 'DiffTurn' atribuindo sempre os valores de rotação dos motores
   DiffTurn(motorLeftSpeed,motorRightSpeed);
  

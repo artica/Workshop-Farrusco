@@ -2,15 +2,15 @@
 
 void ServoRange (int _min, int _max, int _del, int _inc) 
 {  
-  servo.write(i);
+  servo.write(servoPos);
   delay(_del);
   
-  if(i >= _max) dir = DEC_POS;
-  if(i <= _min) dir = INC_POS;
+  if(servoPos >= _max) servoDir = DECREMENTA_POSICAO;
+  if(servoPos <= _min) servoDir = INCREMENTA_POSICAO;
 
-  if(dir == INC_POS)
-    i += _inc;
+  if(servoDir == INCREMENTA_POSICAO)
+    servoPos += _inc;
   else
-    i -= _inc;
+    servoPos -= _inc;
 }
 

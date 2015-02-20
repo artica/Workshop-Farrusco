@@ -20,7 +20,7 @@ long previousMillis = 0;        // will store last time LED was updated
 
 // the follow variables is a long because the time, measured in miliseconds,
 // will quickly become a bigger number than can be stored in an int.
-long interval = 10000;           // interval at which to blink (milliseconds)
+long time_interval = 10000;           // interval at which to blink (milliseconds)
 
 
 // --------------------------------------------------------------------------- NAVIGATION STATE
@@ -45,22 +45,22 @@ int blue_pin = 17;
 #include <Servo.h>
 Servo servo;
 
-#define INC_POS  0
-#define DEC_POS  1
+#define INCREMENTA_POSICAO  0
+#define DECREMENTA_POSICAO  1
 
 // variavel 'dir' (direcção) define a rotacao do servo
 // variable 'dir' (direction) defines servo rotation 
-byte dir = INC_POS;
+byte servoDir = INCREMENTA_POSICAO;
 
 // o valor para ser enviado ao servo
 // value to be sent to the servo
-int i = 90;
+int servoPos = 90;
 
-// increment
-int inc = 5;
+// servo increment
+int servoInc = 5;
 
-// delay
-int del = 50;
+// servo delay
+int servoDelay = 50;
 
 // --------------------------------------------------------------------------- BUMPERS
 int bumperLeft = 8;
@@ -123,7 +123,7 @@ void setup()
 }
 
 void loop() 
-{
+{ 
   
   if (nav_state == 0) 
   {
@@ -133,14 +133,18 @@ void loop()
   {
     FollowLight();
   }
+  
+  
+  // update constante do tempo
   unsigned long currentMillis = millis();
-  Serial.println(previousMillis);
- 
-  if(currentMillis - previousMillis > interval) {
-    // save the last time you blinked the LED 
+
+  // se o tempo actual menos o tempo anterior for superior ao intervalo estabelecido 
+  if(currentMillis - previousMillis > time_interval) {
+    
+    // guardar a ultima vez que o estado mudou 
     previousMillis = currentMillis;   
 
-    // if the LED is off turn it on and vice-versa:
+    // mudar de estado
     if (ledState == LOW) {
       ledState = HIGH;
       nav_state = 0;
@@ -151,6 +155,14 @@ void loop()
     // set the LED with the ledState of the variable:
     digitalWrite(ledPin, ledState);
   }
+  
+  Serial.print(currentMillis);
+  Serial.print("  -  ");
+  Serial.print(previousMillis);
+  Serial.print("  =  ");
+  Serial.print(currentMillis - previousMillis);
+  Serial.print("    ledState:");
+  Serial.println(ledState);
   
 }
 

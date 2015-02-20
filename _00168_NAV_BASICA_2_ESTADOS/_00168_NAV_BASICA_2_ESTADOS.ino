@@ -1,6 +1,8 @@
 /*
  
   Change state when a bumper is pressed
+  
+  nav_state is changed inside Beco() function
 
 */
 
@@ -26,22 +28,22 @@ int blue_pin = 17;
 #include <Servo.h>
 Servo servo;
 
-#define INC_POS  0
-#define DEC_POS  1
+#define INCREMENTA_POSICAO  0
+#define DECREMENTA_POSICAO  1
 
 // variavel 'dir' (direcção) define a rotacao do servo
 // variable 'dir' (direction) defines servo rotation 
-byte dir = INC_POS;
+byte servoDir = INCREMENTA_POSICAO;
 
 // o valor para ser enviado ao servo
 // value to be sent to the servo
-int i = 90;
+int servoPos = 90;
 
-// increment
-int inc = 5;
+// servo increment
+int servoInc = 5;
 
-// delay
-int del = 50;
+// servo delay
+int servoDelay = 50;
 
 // --------------------------------------------------------------------------- BUMPERS
 int bumperLeft = 8;

@@ -5,12 +5,12 @@ void ServoRange (int _min, int _max, int _del, int _inc)
   delay(_del);
   
   if(servoPos >= _max) 
-    dir = DECREMENTA_POSICAO;
+    servoDir = DECREMENTA_POSICAO;
   
   if(servoPos <= _min) 
-    dir = INCREMENTA_POSICAO;
+    servoDir = INCREMENTA_POSICAO;
 
-  if(dir == INCREMENTA_POSICAO)
+  if(servoDir == INCREMENTA_POSICAO)
     servoPos += _inc;
   else
     servoPos -= _inc;

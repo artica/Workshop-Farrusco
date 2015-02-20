@@ -7,7 +7,7 @@ Servo s1;
 #define DECREMENTA_POSICAO  1
 
 // variavel 'dir' (direcção) define a rotacao do servo
-byte dir = INCREMENTA_POSICAO;
+byte servoDir = INCREMENTA_POSICAO;
 
 // o valor para ser enviado ao servo
 // value to be sent to the servo

@@ -2,22 +2,22 @@
 #include <Servo.h>
 Servo servo;
 
-#define INC_POS  0
-#define DEC_POS  1
+#define INCREMENTA_POSICAO  0
+#define DECREMENTA_POSICAO  1
 
 // variavel 'dir' (direcção) define a rotacao do servo
 // variable 'dir' (direction) defines servo rotation 
-byte dir = INC_POS;
+byte servoDir = INCREMENTA_POSICAO;
 
 // o valor para ser enviado ao servo
 // value to be sent to the servo
-int i = 90;
+int servoPos = 90;
 
-// increment
-int inc = 5;
+// servo increment
+int servoInc = 5;
 
-// delay
-int del = 50;
+// servo delay
+int servoDelay = 50;
 
 
 // --------------------------------------------------------------------------- MOTORES DC
@@ -63,33 +63,34 @@ void setup()
 void loop() 
 {
   
-  ServoRange(60, 140, del, 5);
+  ServoRange(60, 140, servoDelay, 5);
   
   ReadIR();
   
-  if (i > 90) {
-    if (IRValue >= 300)   {
+  // se estiver a olhar para a esquerda e se o valor do IR for superior a X 
+  // entao vamos mudar de direccao
+  if (servoPos > 90 && IRValue >= 300) {
       motorRightSpeed = maxSpeedRight;
       motorLeftSpeed = 0;
-      del = 250;
-    }
-    if(IRValue < 299) {
-      motorRightSpeed = maxSpeedRight;
-      motorLeftSpeed = maxSpeedLeft;
-      del = 50;
-    }
+      // slow servo
+      servoDelay = 250;
   }
-  else if (i < 90) {
-    if (IRValue >= 300) {
+  
+  // se estiver a olhar para a direita e se o valor do IR for superior a X 
+  // entao vamos mudar de direccao
+  if (servoPos < 90 && IRValue >= 300) {
       motorRightSpeed = 0;
       motorLeftSpeed = maxSpeedLeft;
-      del = 250;
-    }
-    if(IRValue < 299) {
+      // slow servo
+      servoDelay = 250;
+  }
+  
+  // caso contrario vamos andar em frente
+  if(IRValue < 299) {
       motorRightSpeed = maxSpeedRight;
       motorLeftSpeed = maxSpeedLeft;
-      del = 50;
-    }
+      // speed servo
+      servoDelay = 50;
   }
   
   // chamada da função 'DiffTurn' atribuindo sempre os valores de rotação dos motores
@@ -98,3 +99,45 @@ void loop()
   
 }
 
+
+/*
+codigo antigo note-se a redundancia
+
+// se estiver a olhar para a esquerda
+if (servoPos > 90) {
+    // se o valor do IR for superior a 300
+    // entao vamos mudar de direccao
+    if (IRValue >= 300)   {
+      motorRightSpeed = maxSpeedRight;
+      motorLeftSpeed = 0;
+      // slow servo
+      del = 250;
+    }
+    // caso contrario vamos andar em frente
+    if(IRValue < 299) {
+      motorRightSpeed = maxSpeedRight;
+      motorLeftSpeed = maxSpeedLeft;
+      // speed servo
+      del = 50;
+    }
+  }
+  // se estiver a olhar para a direita
+  else if (servoPos < 90) {
+    // se o valor do IR for superior a 300
+    // entao vamos mudar de direccao
+    if (IRValue >= 300) {
+      motorRightSpeed = 0;
+      motorLeftSpeed = maxSpeedLeft;
+      // slow servo
+      del = 250;
+    }
+    // caso contrario vamos mudar de direccao
+    if(IRValue < 299) {
+      motorRightSpeed = maxSpeedRight;
+      motorLeftSpeed = maxSpeedLeft;
+      // speed servo
+      del = 50;
+    }
+  }
+  
+*/

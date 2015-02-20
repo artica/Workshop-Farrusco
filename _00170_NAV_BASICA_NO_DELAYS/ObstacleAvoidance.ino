@@ -23,6 +23,8 @@ void obstacleAvoidanceUpdate()
     servoDel = 45;
     servoMin = 20;
     servoMax = 160;
+    
+    
     //Are we near an obstacle?
     if (IRValue >= 300)   
     {   

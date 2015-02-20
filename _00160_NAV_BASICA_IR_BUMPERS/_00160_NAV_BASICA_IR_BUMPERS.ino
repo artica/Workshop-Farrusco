@@ -2,22 +2,22 @@
 #include <Servo.h>
 Servo servo;
 
-#define INC_POS  0
-#define DEC_POS  1
+#define INCREMENTA_POSICAO  0
+#define DECREMENTA_POSICAO  1
 
 // variavel 'dir' (direcção) define a rotacao do servo
 // variable 'dir' (direction) defines servo rotation 
-byte dir = INC_POS;
+byte servoDir = INCREMENTA_POSICAO;
 
 // o valor para ser enviado ao servo
 // value to be sent to the servo
-int i = 90;
+int servoPos = 90;
 
-// increment
-int inc = 5;
+// servo increment
+int servoInc = 5;
 
-// delay
-int del = 50;
+// servo delay
+int servoDelay = 50;
 
 // --------------------------------------------------------------------------- BUMPERS
 int bumperLeft = 8;
@@ -74,7 +74,7 @@ void setup()
 void loop() 
 {
   
-  ServoRange(60, 140, del, 5);
+  ServoRange(60, 140, servoDelay, 5);
   
   ReadIR();
   
@@ -90,45 +90,32 @@ void loop()
   }
   else 
   {
-  // se 'i' for menor do que 90 quer dizer que estamos a olhar para a esquerda
+  // se 'servoPos' for menor do que 90 quer dizer que estamos a olhar para a esquerda
   // logo querermos que o robot se afaste, sendo assim vamos parar o motor da direita
   // girando apenas o motor da esquerda 
-  if (i > 90) {
-    if (IRValue >= 300)   {
+  if (servoPos > 90 && IRValue >= 300)   {
       motorRightSpeed = maxSpeedRight;
       motorLeftSpeed = 0;
-
       // slow down servo speed
-      del = 250;
+      servoDelay = 250;
     }
-    if(IRValue < 299) {
-      motorRightSpeed = maxSpeedRight;
-      motorLeftSpeed = maxSpeedLeft;
-      
-      // speed up servo speed
-      del = 50;
-    }
-  }
   
-  // se 'i' for maior do que 90 quer dizer que estamos a olhar para a direita
+  // se 'servoPos' for maior do que 90 quer dizer que estamos a olhar para a direita
   // logo querermos que o robot se afaste, sendo assim vamos parar o motor da esquerda
   // girando apenas o motor da direita 
-  if (i < 90) {
-    if (IRValue >= 300) {
+  if (servoPos < 90 && IRValue >= 300) {
       motorRightSpeed = 0;
       motorLeftSpeed = maxSpeedLeft;
-
       // slow down servo speed
-      del = 250;
+      servoDelay = 250;
     }
-    if(IRValue < 299) {
+    
+   if(IRValue < 299) {
       motorRightSpeed = maxSpeedRight;
       motorLeftSpeed = maxSpeedLeft;
-      
       // speed up servo speed
-      del = 50;
+      servoDelay = 50;
     }
-  }
   
   // chamada da função 'DiffTurn' atribuindo sempre os valores de rotação dos motores
   DiffTurn(motorLeftSpeed,motorRightSpeed);
